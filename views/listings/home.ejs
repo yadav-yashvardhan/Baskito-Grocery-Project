@@ -14,6 +14,7 @@
       </div>
       <div class="card-container">
 <% let royalDishes = dishes.filter(d => d.name === "Paneer Butter Masala"); %>
+<% if (royalDishes.length > 0) { %>
   <a href="/ingredient/<%= royalDishes[0]._id %>">
     <div class="card">
       <div class="card-img">
@@ -25,6 +26,10 @@
       </div>
     </div>
   </a>
+<% } else { %>
+  <p>Paneer Butter Masala dish is not available.</p>
+<% } %>
+
 
          
         <div class="card">
@@ -59,3 +64,4 @@
       </div>
     </div>
   </body>
+
