@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baskito Footer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: #f9f9f9;
+    }
+
+    /* 🌙 Dark Mode Styles */
+    body.dark-mode {
+      background-color: #1a1a2e;
+      color: #e0e0e0;
+    }
+
+    .dark-mode footer {
+      background-color: #121225;
+      border-top: 1px solid #3a3a4a;
+    }
+
+    .dark-mode .footer-column h4 {
+      color: #e0e0e0;
+    }
+
+    .dark-mode .footer-column ul li {
+      color: #b0b0b0;
+    }
+
+    .dark-mode .footer-column ul li a {
+      color: #b0b0b0;
+    }
+
+    .dark-mode .footer-column ul li a:hover {
+      color: #8a7bff;
+    }
+
+    .dark-mode .footer-bottom {
+      border-top: 1px solid #3a3a4a;
+      color: #b0b0b0;
+    }
+
+    .dark-mode .footer-social a {
+      color: #e0e0e0;
+    }
+
+    .dark-mode .footer-social a:hover {
+      color: #8a7bff;
+    }
+
+    .dark-mode .disclaimer {
+      color: #b0b0b0;
+    }
+
+    /* ☀ Light Mode Styles */
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #1a1a2e;
+    }
+
+    .light-mode footer {
+      background-color: #ffffff;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .light-mode .footer-column h4 {
+      color: #1a1a2e;
+    }
+
+    .light-mode .footer-column ul li {
+      color: #444;
+    }
+
+    .light-mode .footer-column ul li a {
+      color: #444;
+    }
+
+    .light-mode .footer-column ul li a:hover {
+      color: #6c5ce7;
+    }
+
+    .light-mode .footer-bottom {
+      border-top: 1px solid #e0e0e0;
+      color: #777;
+    }
+
+    .light-mode .footer-social a {
+      color: #1a1a2e;
+    }
+
+    .light-mode .footer-social a:hover {
+      color: #6c5ce7;
+    }
+
+    .light-mode .disclaimer {
+      color: #777;
+    }
+
+    footer {
+      padding: 2.5rem 3.75rem;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .footer-column h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.9375rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.625rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .footer-column ul li a {
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      font-size: 0.875rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9375rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.9375rem;
+    }
+
+    .footer-social a {
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .footer-apps {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    .app-links {
+      display: flex;
+      gap: 0.625rem;
+      align-items: center;
+    }
+
+    .footer-apps span {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .footer-apps img {
+      height: 2.5rem;
+      max-width: 100%;
+    }
+
+    .tefilat-app {
+      border: 2px solid #ffffff;
+      border-radius: 8px;
+    }
+
+    .footer-bottom > div:first-child {
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .disclaimer {
+      font-size: 0.6875rem;
+      margin-top: 1.25rem;
+      line-height: 1.5;
+      max-width: 90%;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      footer {
+        padding: 2rem 2rem;
+      }
+
+      .footer-container {
+        gap: 1.5rem;
+      }
+
+      .footer-column {
+        min-width: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 1.5rem 1rem;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .footer-column h4 {
+        font-size: 1rem;
+      }
+
+      .footer-column ul li {
+        font-size: 0.8125rem;
+      }
+
+      .footer-bottom {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        font-size: 0.8125rem;
+      }
+
+      .footer-social a {
+        font-size: 1.125rem;
+      }
+
+      .footer-apps img {
+        height: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      footer {
+        padding: 1rem 0.75rem;
+      }
+
+      .footer-column h4 {
+        font-size: 0.9375rem;
+      }
+
+      .footer-column ul li {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-bottom {
+        gap: 0.75rem;
+      }
+
+      .footer-social {
+        gap: 0.625rem;
+      }
+
+      .footer-social a {
+        font-size: 1rem;
+      }
+
+      .footer-apps img {
+        height: 1.75rem;
+      }
+
+      .disclaimer {
+        font-size: 0.625rem;
+        max-width: 95%;
+      }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Categories</h4>
+        <ul>
+          <li>Vegetables & Fruits</li>
+          <li>Cold Drinks & Juices</li>
+          <li>Bakery & Biscuits</li>
+          <li>Dry Fruits, Masala & Oil</li>
+          <li>Paan Corner</li>
+          <li>Pharma & Wellness</li>
+          <li>Ice Creams & Desserts</li>
+          <li>Beauty & Cosmetics</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4> </h4>
+        <ul>
+          <li>Electronics & Electricals</li>
+          <li>Toys & Games</li>
+          <li>Dairy & Breakfast</li>
+          <li>Instant & Frozen Food</li>
+          <li>Sweet Tooth</li>
+          <li>Sauces & Spreads</li>
+          <li>Organic & Premium</li>
+          <li>Cleaning Essentials</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4> </h4>
+        <ul>
+          <li>Personal Care</li>
+          <li>Magazines</li>
+          <li>Stationery Needs</li>
+          <li>Print Store</li>
+          <li>Munchies</li>
+          <li>Tea, Coffee & Health Drinks</li>
+          <li>Atta, Rice & Dal</li>
+          <li>Chicken, Meat & Fish</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4> </h4>
+        <ul>
+          <li>Baby Care</li>
+          <li>Home & Office</li>
+          <li>Pet Care</li>
+          <li>Fashion & Accessories</li>
+          <li>Books</li>
+          <li>E-Gift Cards</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-apps">
+        <span>Download App</span>
+        <div class="app-links">
+          <img src="https://www.svgrepo.com/show/353828/google-play-icon.svg" alt="Google Play">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/768px-App_Store_%28iOS%29.svg.png?20201023145313" alt="app store" >
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="#">🐦</a>
+        <a href="#">📸</a>
+        <a href="#">💼</a>
+        <a href="#">🛍</a>
+      </div>
+      <div>© Baskito Commerce Private Limited, 2016-infinite</div>
+    </div>
+    <div class="disclaimer">
+      “Baskito” is owned & managed by "Baskito Commerce Private Limited" and is not related, linked or interconnected in whatsoever manner or nature, to “GROFFR.COM” which is a real estate services business operated by “Redstone Consultancy Services Private Limited”.
+    </div>
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,433 @@
+<% layout("/layouts/boilerplate") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Orders - Baskito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #1a1a2e;
+    }
+
+    /* 🌙 Dark Mode Styles */
+    body.dark-mode {
+      background-color: #1a1a2e;
+      color: #e0e0e0;
+    }
+
+    .dark-mode .orders-container {
+      background-color: #121225;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .dark-mode .order-card {
+      background-color: #25253a;
+      border: 1px solid #3a3a4a;
+    }
+
+    .dark-mode .order-card:hover {
+      background-color: #2f2f4b;
+      box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+    }
+
+    .dark-mode .order-details-expanded {
+      background-color: #2f2f4b;
+      border-top: 1px solid #3a3a4a;
+    }
+
+    /* ☀ Light Mode Styles */
+    body.light-mode {
+      background-color: #f5f5f5;
+      color: #1a1a2e;
+    }
+
+    .light-mode .orders-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .light-mode .order-card {
+      background-color: #ffffff;
+      border: 1px solid #d0d0d0;
+    }
+
+    .light-mode .order-card:hover {
+      background-color: #f0f0ff;
+      box-shadow: 0 6px 20px rgba(108, 92, 231, 0.2);
+    }
+
+    .light-mode .order-details-expanded {
+      background-color: #f8f8ff;
+      border-top: 1px solid #d0d0d0;
+    }
+
+    .orders-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .orders-header {
+      font-size: 28px;
+      font-weight: 600;
+      color: #6c5ce7;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .orders-header:hover {
+      color: #8a7bff;
+    }
+
+    .orders-header:active {
+      color: #8a7bff;
+    }
+
+    .order-card {
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .order-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .order-card:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
+    }
+
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-details {
+      flex: 1;
+    }
+
+    .order-id {
+      font-size: 16px;
+      font-weight: 600;
+      color: inherit;
+      margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .order-date, .order-total {
+      font-size: 14px;
+      color: inherit;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .view-btn {
+      background-color: #6c5ce7;
+      color: #fff;
+    }
+
+    .view-btn:hover {
+      background-color: #8a7bff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+    }
+
+    .view-btn:active {
+      background-color: #8a7bff;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);
+    }
+
+    .order-details-expanded {
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      display: none;
+      animation: expand 0.3s ease-out;
+    }
+
+    .order-details-expanded.show {
+      display: block;
+    }
+
+    @keyframes expand {
+      from {
+        opacity: 0;
+        max-height: 0;
+      }
+      to {
+        opacity: 1;
+        max-height: 500px;
+      }
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .order-item-name {
+      font-weight: 500;
+    }
+
+    .order-item-price {
+      color: #6c5ce7;
+    }
+
+    .order-total-details {
+      font-weight: 600;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .empty-orders {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 18px;
+      color: inherit;
+      opacity: 0.8;
+    }
+
+    .empty-orders-icon {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #6c5ce7;
+      opacity: 0.5;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .orders-container {
+        margin: 20px;
+        padding: 15px;
+      }
+
+      .order-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .order-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .order-id {
+        font-size: 14px; /* Smaller font size for medium screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .orders-header {
+        font-size: 24px;
+      }
+
+      .order-card {
+        padding: 15px;
+      }
+
+      .action-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+        min-height: 44px; /* Touch-friendly */
+      }
+
+      .order-card:hover, .view-btn:hover, .orders-header:hover {
+        transform: none; /* Disable hover transforms on touch devices */
+      }
+
+      .order-id {
+        font-size: 12px; /* Even smaller font size for small screens */
+        max-width: 100%; /* Ensure it doesn't overflow */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="orders-container">
+    <h1 class="orders-header">My Orders</h1>
+    <% if (orders && Array.isArray(orders) && orders.length > 0) { %>
+      <% orders.forEach((order, index) => { %>
+        <% 
+          // Validate items total
+          let itemsTotal = 0;
+          if (order.items && Array.isArray(order.items)) {
+            order.items.forEach(item => {
+              const price = !isNaN(parseFloat(item.price)) && parseFloat(item.price) >= 0 ? parseFloat(item.price) : 0;
+              const quantity = !isNaN(parseInt(item.quantity)) && parseInt(item.quantity) > 0 ? parseInt(item.quantity) : 1;
+              itemsTotal += price * quantity;
+            });
+          }
+          itemsTotal = itemsTotal.toFixed(2);
+          // Additional charges
+          const deliveryFee = 19.00;
+          const handlingFees = 8.00;
+          const gst = (parseFloat(itemsTotal) * 0.05).toFixed(2); // 5% GST on items total
+          // Calculate final total
+          const total = (parseFloat(itemsTotal) + deliveryFee + handlingFees + parseFloat(gst)).toFixed(2);
+          // Validate orderDate
+          const date = order.orderDate && !isNaN(new Date(order.orderDate).getTime()) 
+            ? new Date(order.orderDate).toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }) 
+            : 'N/A';
+        %>
+        <div class="order-card">
+          <div class="order-card-header">
+            <div class="order-details">
+              <div class="order-id">Order #<%= order._id || 'N/A' %></div>
+              <div class="order-date">Placed on: <%= date %></div>
+              <div class="order-total">Total: ₹<%= total %></div>
+            </div>
+            <div class="order-actions">
+              <button class="action-btn view-btn" onclick="toggleDetails('<%= order._id || index %>')">View Details</button>
+            </div>
+          </div>
+          <div class="order-details-expanded" id="details-<%= order._id || index %>">
+            <% if (order.items && Array.isArray(order.items) && order.items.length > 0) { %>
+              <% order.items.forEach(item => { %>
+                <% 
+                  // Validate item price
+                  const price = !isNaN(parseFloat(item.price)) && parseFloat(item.price) >= 0 
+                    ? parseFloat(item.price).toFixed(2) 
+                    : '0.00';
+                  // Validate item quantity
+                  const quantity = !isNaN(parseInt(item.quantity)) && parseInt(item.quantity) > 0 
+                    ? parseInt(item.quantity) 
+                    : 1;
+                %>
+                <div class="order-item">
+                  <div class="order-item-name"><%= item.name || 'Unknown Item' %> (Qty: <%= quantity %>)</div>
+                  <div class="order-item-price">₹<%= price %></div>
+                </div>
+              <% }) %>
+              <div class="order-total-details">
+                <div>Items Total: ₹<%= itemsTotal %></div>
+                <div>Delivery Fee: ₹<%= deliveryFee.toFixed(2) %></div>
+                <div>Handling Fees: ₹<%= handlingFees.toFixed(2) %></div>
+                <div>GST (5%): ₹<%= gst %></div>
+                <div>Total: ₹<%= total %></div>
+              </div>
+            <% } else { %>
+              <p>No items found for this order.</p>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="empty-orders">
+        <div class="empty-orders-icon">📦</div>
+        <p>No orders found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    // Load theme from localStorage or system preference
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark-mode' : 'light-mode');
+      document.body.classList.add(savedTheme);
+
+      // Ensure orders are rendered with animation
+      document.querySelectorAll('.order-card').forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+
+    // Toggle order details
+    function toggleDetails(orderId) {
+      const detailsSection = document.getElementById(`details-${orderId}`);
+      if (!detailsSection) {
+        console.error(`Details section not found for order ID: ${orderId}`);
+        return;
+      }
+      
+      const isVisible = detailsSection.classList.contains('show');
+      
+      // Close all other details sections
+      document.querySelectorAll('.order-details-expanded').forEach(section => {
+        section.classList.remove('show');
+      });
+
+      // Toggle the clicked section
+      if (!isVisible) {
+        detailsSection.classList.add('show');
+      }
+    }
+  </script>
+</body>
+</html>

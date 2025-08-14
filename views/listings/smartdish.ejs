@@ -1,0 +1,633 @@
+<% layout("/layouts/boilerplate") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartDish</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #6c5ce7;
+      --primary-light: rgba(108, 92, 231, 0.5);
+      --dark: #121225;
+      --gray: #e0e0e0;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--gray);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 1200px;
+      height: 180px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--primary-light);
+      position: relative;
+      background: linear-gradient(45deg, var(--dark), var(--primary-light));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .food-type-selection {
+      display: flex;
+      gap: 20px;
+      padding-left: 20px;
+    }
+
+    .food-type-selection button {
+      padding: 12px 24px;
+      background-color: var(--primary-light);
+      color: var(--gray);
+      border: 2px solid var(--primary);
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .food-type-selection button:hover {
+      background-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px var(--primary-light);
+    }
+
+    .food-type-selection button:active {
+      background-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px var(--primary-light);
+    }
+
+    .food-type-selection button.selected {
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      border-color: var(--gray);
+    }
+
+    .food-type-selection button.veg {
+      background-color: var(--primary);
+    }
+
+    .food-type-selection button.non-veg.selected {
+      background-color: var(--dark);
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    a,
+    a:visited,
+    a:active,
+    a:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .section-heading {
+      font-size: 32px;
+      margin: 20px 0;
+      color: rgba(108, 92, 231, 1);
+      text-align: center;
+      font-weight: bold;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .section-content .row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      padding: 25px;
+    }
+
+    .dish-card {
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 350px;
+      height: 100%;
+      padding-bottom: 50px;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px var(--primary-light);
+      border: 1px solid var(--primary);
+    }
+
+    .dish-card:active {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px var(--primary-light);
+      border: 1px solid var(--primary);
+    }
+
+    .card-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dish-card:hover .card-img img {
+      transform: scale(1.05);
+    }
+
+    .card-body {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-content {
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-text {
+      font-size: 15px;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .smart-cart-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%) scale(1);
+      padding: 10px 40px;
+      min-width: 180px;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .smart-cart-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .smart-cart-btn:hover::before {
+      left: 100%;
+    }
+
+    .smart-cart-btn:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 6px 15px rgba(108, 92, 231, 0.4);
+    }
+
+    .smart-cart-btn:active {
+      transform: translateX(-50%) scale(0.98);
+      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);
+    }
+
+    .no-dishes {
+      text-align: center;
+      font-size: 18px;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      grid-column: span 4;
+    }
+
+    .no-dishes i {
+      font-size: 48px;
+      color: var(--gray);
+    }
+
+    @media (max-width: 992px) {
+      .section-content .row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .section-content .row {
+        grid-template-columns: 1fr;
+      }
+      .main-content {
+        padding: 10px;
+      }
+      .food-type-selection button, .smart-cart-btn {
+        min-height: 44px;
+      }
+      body {
+        font-size: 14px;
+      }
+      .dish-card:hover, .food-type-selection button:hover, .smart-cart-btn:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <div class="box">
+      <img src="https://template.canva.com/EAFDFSjmySs/1/0/1600w-H_DMaoahmks.jpg" alt="SmartDish Image" loading="lazy">
+    </div>
+
+    <!-- Veg/Non-Veg Toggle -->
+    <div class="food-type-selection">
+      <button class="veg selected" onclick="filterDishes('veg')"><i class="fas fa-leaf"></i> Veg</button>
+      <button class="non-veg" onclick="filterDishes('non-veg')"><i class="fas fa-drumstick-bite"></i> Non-Veg</button>
+    </div>
+
+    <div class="card-container">
+      <!-- Royal Dishes -->
+      <h2 class="section-heading">Royal Dishes</h2>
+      <div class="section-content">
+        <div class="row" id="royal-dishes">
+          <% let royalDishes = dishes.filter(d => d.category === 'royal'); %>
+          <% if (royalDishes.length === 0) { %>
+            <p class="no-dishes"><i class="fas fa-box-open"></i> No Royal Dishes Available</p>
+          <% } else { %>
+            <% royalDishes.forEach(dish => { %>
+              <a href="ingredient/<%=dish._id%>">
+                <div class="dish-card" data-type="<%= dish.type %>">
+                  <div class="card-img">
+                    <% if (dish.image) { %>
+                      <img src="<%= dish.image %>" alt="<%= dish.name %>" loading="lazy">
+                    <% } else { %>
+                      <div style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; background: linear-gradient(45deg, var(--dark), var(--primary-light)); color: var(--gray); font-size: 18px;">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-content">
+                      <h5 class="card-title"><%= dish.name %></h5>
+                      <p class="card-text"><%= dish.description %></p>
+                    </div>
+                  </div>
+                  <button class="smart-cart-btn" data-dish-id="<%= dish._id %>">Smart Cart</button>
+                </div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Regular Dishes -->
+      <h2 class="section-heading">Regular Dishes</h2>
+      <div class="section-content">
+        <div class="row" id="regular-dishes">
+          <% let regularDishes = dishes.filter(d => d.category === 'regular'); %>
+          <% if (regularDishes.length === 0) { %>
+            <p class="no-dishes"><i class="fas fa-box-open"></i> No Regular Dishes Available</p>
+          <% } else { %>
+            <% regularDishes.forEach(dish => { %>
+              <a href="ingredient/<%=dish._id%>">
+                <div class="dish-card" data-type="<%= dish.type %>">
+                  <div class="card-img">
+                    <% if (dish.image) { %>
+                      <img src="<%= dish.image %>" alt="<%= dish.name %>" loading="lazy">
+                    <% } else { %>
+                      <div style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; background: linear-gradient(45deg, var(--dark), var(--primary-light)); color: var(--gray); font-size: 18px;">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-content">
+                      <h5 class="card-title"><%= dish.name %></h5>
+                      <p class="card-text"><%= dish.description %></p>
+                    </div>
+                    <button class="smart-cart-btn" data-dish-id="<%= dish._id %>">Smart Cart</button>
+                  </div>
+                </div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Sabji Dishes -->
+      <h2 class="section-heading">Sabji Dishes</h2>
+      <div class="section-content">
+        <div class="row" id="sabji-dishes">
+          <% let sabjiDishes = dishes.filter(d => d.category === 'sabji'); %>
+          <% if (sabjiDishes.length === 0) { %>
+            <p class="no-dishes"><i class="fas fa-box-open"></i> No Sabji Dishes Available</p>
+          <% } else { %>
+            <% sabjiDishes.forEach(dish => { %>
+              <a href="ingredient/<%=dish._id%>">
+                <div class="dish-card" data-type="<%= dish.type %>">
+                  <div class="card-img">
+                    <% if (dish.image) { %>
+                      <img src="<%= dish.image %>" alt="<%= dish.name %>" loading="lazy">
+                    <% } else { %>
+                      <div style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; background: linear-gradient(45deg, var(--dark), var(--primary-light)); color: var(--gray); font-size: 18px;">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-content">
+                      <h5 class="card-title"><%= dish.name %></h5>
+                      <p class="card-text"><%= dish.description %></p>
+                    </div>
+                    <button class="smart-cart-btn" data-dish-id="<%= dish._id %>">Smart Cart</button>
+                  </div>
+                </div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Existing filterDishes function (unchanged)
+    function filterDishes(type) {
+      const dishCards = document.querySelectorAll('.dish-card');
+      const vegBtn = document.querySelector('.veg');
+      const nonVegBtn = document.querySelector('.non-veg');
+
+      // Toggle button styles
+      vegBtn.classList.toggle('selected', type === 'veg');
+      nonVegBtn.classList.toggle('selected', type === 'non-veg');
+
+      // Show/hide dish cards
+      dishCards.forEach(card => {
+        card.style.display = card.dataset.type === type ? 'block' : 'none';
+      });
+
+      // Show/hide headers and messages
+      const sectionIds = ['royal-dishes', 'regular-dishes', 'sabji-dishes'];
+      sectionIds.forEach(id => {
+        const section = document.getElementById(id);
+        const header = section.closest('.section-content').previousElementSibling;
+        const visible = section.querySelectorAll(`.dish-card[data-type="${type}"]`);
+        const noMsg = section.querySelector('.no-dishes');
+
+        if (visible.length === 0) {
+          if (!noMsg) {
+            const msg = document.createElement('p');
+            msg.className = 'no-dishes';
+            msg.innerHTML = `<i class="fas fa-box-open"></i> No ${id.replace('-dishes', '')} Dishes Available`;
+            section.appendChild(msg);
+          }
+          header.style.display = 'none';
+        } else {
+          if (noMsg) noMsg.remove();
+          header.style.display = 'block';
+        }
+      });
+    }
+
+    // Initialize filter and Smart Cart functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      filterDishes('veg');
+
+      // Handle Smart Cart button clicks
+      const smartCartButtons = document.querySelectorAll('.smart-cart-btn');
+      const cartOverlay = document.getElementById('cart-overlay');
+      const msg = document.querySelector('#msg');
+
+      if (!cartOverlay || !msg) {
+        console.error('Cart overlay or message element not found in the DOM');
+        return;
+      }
+
+      smartCartButtons.forEach(button => {
+        button.addEventListener('click', async (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          e.stopPropagation(); // Prevent click from bubbling to the parent <a> tag
+
+          const dishId = button.getAttribute('data-dish-id');
+          if (!dishId) {
+            console.error('Dish ID not found on button');
+            msg.textContent = 'Invalid dish ID.';
+            msg.classList.add('show');
+            setTimeout(() => {
+              msg.classList.remove('show');
+              msg.textContent = '';
+            }, 3000);
+            return;
+          }
+
+          try {
+            console.log(`Fetching products for dish ID: ${dishId}`);
+            const response = await fetch(`/smart-cart/${dishId}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include', // Include cookies for session
+            });
+
+            if (!response.ok) {
+              const errorText = await response.text();
+              console.error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              console.error('Response is not JSON:', await response.text());
+              throw new Error('Invalid response format from server');
+            }
+
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            const products = data.products || [];
+            if (products.length === 0) {
+              console.warn('No products returned for dish ID:', dishId);
+              msg.textContent = 'No products available for this dish.';
+              msg.classList.add('show');
+              setTimeout(() => {
+                msg.classList.remove('show');
+                msg.textContent = '';
+              }, 3000);
+              return;
+            }
+
+            // Get existing cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Group products by ingredient to select one product per ingredient
+            const productsByIngredient = {};
+            products.forEach(product => {
+              if (!product.ingredient) {
+                console.warn('Product missing ingredient field:', product);
+                return;
+              }
+              const ingredientId = product.ingredient.toString();
+              if (!productsByIngredient[ingredientId]) {
+                productsByIngredient[ingredientId] = product;
+              }
+            });
+
+            // Add one product per ingredient to the cart
+            Object.values(productsByIngredient).forEach(product => {
+              if (!product._id || !product.name || !product.price) {
+                console.warn('Invalid product data:', product);
+                return;
+              }
+              const existingItem = cart.find(item => item.id === product._id.toString());
+              if (existingItem) {
+                // Increment quantity if product is already in cart
+                existingItem.quantity += 1;
+                console.log(`Incremented quantity for ${product.name}: ${existingItem.quantity}`);
+              } else {
+                // Add new product to cart
+                const cartItem = {
+                  id: product._id.toString(),
+                  name: product.name,
+                  price: `${(product.price)}`, // Store with ₹ symbol
+                  image: product.image || 'https://via.placeholder.com/70',
+                  weight: product.weight ,
+                  quantity: 1,
+                };
+                cart.push(cartItem);
+                console.log(`Added to cart: ${product.name}`);
+              }
+            });
+
+            // Save updated cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log('Updated cart:', cart);
+
+            // Check if renderCart is available
+            if (typeof renderCart !== 'function') {
+              console.error('renderCart function is not defined');
+              msg.textContent = 'Cart display function not available.';
+              msg.classList.add('show');
+              setTimeout(() => {
+                msg.classList.remove('show');
+                msg.textContent = '';
+              }, 3000);
+              return;
+            }
+
+            // Update cart display
+            renderCart();
+
+            // Show cart overlay
+            cartOverlay.classList.add('active');
+
+            // Show success message
+            msg.textContent = 'Products added to cart!';
+            msg.classList.add('show');
+            setTimeout(() => {
+              msg.classList.remove('show');
+              msg.textContent = '';
+            }, 3000);
+
+          } catch (error) {
+            console.error('Error adding products to cart:', error.message);
+            msg.textContent = `Failed to add products: ${error.message}`;
+            msg.classList.add('show');
+            setTimeout(() => {
+              msg.classList.remove('show');
+              msg.textContent = '';
+            }, 3000);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

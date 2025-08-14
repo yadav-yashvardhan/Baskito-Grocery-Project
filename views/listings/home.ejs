@@ -1,0 +1,61 @@
+<% layout("/layouts/boilerplate") %>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <body>
+    <div class="full-container">
+      <a href="/smartdish">
+        <div class="paan-box" style="border: none;">
+          <img src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=2700/layout-engine/2022-05/Group-33704.jpg" height="245px" width="1150px" alt="">
+        </div>
+      </a>
+      <div class="trending">
+        <b>Trending <span style="color:rgba(108, 92, 231, 1)">Recipes</span> of The Day!</b>
+      </div>
+      <div class="card-container">
+<% let royalDishes = dishes.filter(d => d.name === "Paneer Butter Masala"); %>
+  <a href="/ingredient/<%= royalDishes[0]._id %>">
+    <div class="card">
+      <div class="card-img">
+        <img src="https://img.freepik.com/premium-photo/delicious-paneer-butter-masala-photography_928503-851.jpg?w=2000" class="card-img-top" alt="Paneer Kofta" />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Paneer Butter Masala</h5>
+        <p class="card-text">From Tikka to Butter Masala — Add Everything You Need for the Perfect Paneer Dish!</p>
+      </div>
+    </div>
+  </a>
+
+         
+        <div class="card">
+          <div class="card-img">
+            <img src="https://im.whatshot.in/img/2021/Feb/istock-1225598442-cropped-1-1590639121-1612183563.jpg" class="card-img-top" alt="Chole" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Chole</h5>
+            <p class="card-text">Make Delicious Chole Like a Pro — From Chana to Masalas, All in One Click!</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-img">
+            <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/06/Authentic-Punjabi-Rajma-Recipe.jpg" class="card-img-top" alt="Rajma" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Rajma</h5>
+            <p class="card-text">Rajma Chawal Cravings? One Click Packs All the Goodness in Your Cart!</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-img">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.giZqQvtTXt3PFYe6G3MG7AHaE8&pid=Api&P=0&h=180" class="card-img-top" alt="Daal Makhani" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Daal Makhani</h5>
+            <p class="card-text">Creamy, Rich, and Slow-Cooked — Get All You Need for That Authentic Dal Makhni!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

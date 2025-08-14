@@ -1,0 +1,77 @@
+<% layout("/layouts/boilerplate") %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Dish</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Dishes</h1>
+  <ul>
+    <h1>royal didhes</h1>
+    <% dishes.forEach(dish => { %>
+      <li>
+        <div class="dish" onclick="toggleIngredients('<%= dish._id %>')">
+          🍛 <%= dish.name %>
+        </div>
+        <ul id="ingredients-<%= dish._id %>" class="hidden">
+          <% dish.ingredients.forEach(ing => { %>
+            <li>
+              <div class="ingredient" onclick="loadProducts(event, '<%= ing._id %>', '<%= dish._id %>')">
+                🔸 <%= ing.name %>
+              </div>
+              <ul id="products-<%= ing._id %>" class="hidden"></ul>
+            </li>
+          <% }) %>
+        </ul>
+      </li>
+    <% }) %>
+  </ul>
+ <h1>regular didhes</h1>
+    <% regularDishes.forEach(dish => { %>
+      <div class="dish" onclick="toggleIngredients('<%= dish._id %>')">
+          🍛 <%= dish.name %>
+        </div>
+    <% }) %>
+  <script>
+    function toggleIngredients(dishId) {
+      const list = document.getElementById(`ingredients-${dishId}`);
+      list.classList.toggle("hidden");
+    }
+
+    async function loadProducts(event, ingredientId, dishId) {
+      event.stopPropagation(); // Prevent dish toggle
+      const productList = document.getElementById(`products-${ingredientId}`);
+      
+      // Toggle visibility: hide if already visible, otherwise fetch and show
+      if (!productList.classList.contains("hidden")) {
+        productList.classList.add("hidden");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/products/${ingredientId}`);
+        if (!res.ok) throw new Error("Failed to fetch products");
+        const products = await res.json();
+
+        productList.innerHTML = "";
+        products.forEach(p => {
+          const li = document.createElement("li");
+          li.innerHTML = `<img src="${p.image}" width="80" alt="${p.name}" /> <strong>${p.name}</strong> - ${p.weight} - ${p.price}`;
+          productList.appendChild(li);
+        });
+        productList.classList.remove("hidden");
+      } catch (error) {
+        console.error("Error loading products:", error);
+        productList.innerHTML = "<li>Failed to load products</li>";
+        productList.classList.remove("hidden");
+      }
+    }
+  </script>
+</body>
+</html>

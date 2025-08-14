@@ -1,0 +1,182 @@
+
+
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top:90px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+
+  .card {
+    width: 17rem;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+
+  .card:hover {
+    transform: scale(1.03);
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+
+
+.card-img {
+  perspective: 1000px; /* Enables 3D effect */
+  overflow: hidden;
+}
+
+.card-img img {
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.card-img:hover img {
+  transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.card-img:hover img {
+  transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+}
+
+.card-img img {
+  will-change: transform;
+}
+.link-home{
+  text-decoration: none;
+  color: inherit; /* Ya koi specific color: color: #444; */
+}
+.paan-box{
+  width:100%;
+  height: 234px;
+  border:2px solid black;
+  margin-top:30px;
+  border-radius: 20px;
+  margin-bottom:30px;
+}
+.full-container{
+  width:1150px;
+  margin:auto;
+  /* position: absolute; */
+}
+.small-ingri img{
+  width: 128px;
+  height: 188.23px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+}
+.trending{
+  text-align:center;
+  height:20px;
+  font-size:60px;
+  font-weight:bold;
+}
+.containe1r{
+background-color: #555 !important;
+}
+body.dark-mode .card-title {
+  color: rgba(108, 92, 231, 1);
+} 
+
+/* ✅ Responsive adjustments */
+@media (max-width: 1200px) {
+  .full-container {
+    width: 95%;
+    padding: 0 10px;
+  }
+
+  .trending {
+    font-size: 48px;
+  }
+
+  .paan-box {
+    height: auto;
+  }
+
+  .paan-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .trending {
+    font-size: 36px;
+    height: auto;
+    line-height: 1.2;
+  }
+
+  .small-ingri img {
+    width: 100px;
+    height: auto;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trending {
+    font-size: 28px;
+    padding: 10px;
+  }
+
+  .card {
+    max-width: 90%;
+  }
+
+  .card-img-top {
+    height: 160px;
+  }
+
+  .small-ingri img {
+    width: 80px;
+    height: auto;
+  }
+
+  .full-container {
+    width: 100%;
+    padding: 0 8px;
+  }
+}
+
+
