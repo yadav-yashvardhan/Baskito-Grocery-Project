@@ -54,7 +54,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: "mongodb://127.0.0.1:27017/smartdish",
+    mongoUrl: process.env.MONGODB_URI,
     collectionName: 'sessions',
   }),
   cookie: {
@@ -592,5 +592,6 @@ app.listen(8080, () => {
   console.log("Server running on http://localhost:8080");
   console.log("Visit listings: http://localhost:8080/listings");
 });
+
 
 
