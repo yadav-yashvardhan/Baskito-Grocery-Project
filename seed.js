@@ -3,11 +3,14 @@ const Ingredient = require("./models/Ingredient");
 const Product = require("./models/Product");
 const Dish = require("./models/Dish");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/smartdish", {
-}).then(() => {
-  console.log("Connected to MongoDB");
-}).catch((err) => {
-  console.error("MongoDB connection error:", err);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("✅ MongoDB Atlas Connected"))
+.catch(err => {
+  console.error("❌ MongoDB connection error:", err);
+  process.exit(1);
 });
 
 const seed = async () => {
@@ -1878,3 +1881,4 @@ seed().catch(err => {
 
 
     
+
