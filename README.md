@@ -68,9 +68,6 @@ And we’ve taken it a step further — with **warehouse integration** and **Goo
 **Signup Page**
 ![Signup Pge](assets/SignUpPage.png)
 
-**Dish Search**  
-![Dish Search](assets/DishPge.png)
-
 **Dish Selection Page 1**
 ![Dish Selection Page](assets/DishSelectionPage1.png)
 
@@ -106,7 +103,7 @@ And we’ve taken it a step further — with **warehouse integration** and **Goo
 
 ## 🎥 Demo Video
 
-[▶ Watch Demo on YouTube](https://youtu.be/your-demo-video-link)
+[▶ Watch Demo on YouTube](https://youtu.be/921gqfG2k1k)
 
 ---
 
