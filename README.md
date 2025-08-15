@@ -62,17 +62,45 @@ And we’ve taken it a step further — with **warehouse integration** and **Goo
 **Homepage**  
 ![Homepage](assets/homepage.png)
 
+**Login Page**
+![Login Pge](assets/LoginPage.png)
+
+**Signup Page**
+![Signup Pge](assets/SignUpPage.png)
+
 **Dish Search**  
-![Dish Search](assets/dish-search.png)
+![Dish Search](assets/DishPge.png)
 
-**SmartCart in Action**  
-![SmartCart](assets/smartcart.png)
+**Dish Selection Page 1**
+![Dish Selection Page](assets/DishSelectionPage1.png)
 
-**Payment Page**  
-![Payment](assets/payment.png)
+**Dish Selection Page 2**
+![Dish Selection Page](assets/DishSelectionPage2.png)
 
-**Live Tracking Map**  
-![Live Tracking](assets/map.png)
+**Dish Page**
+![Dish Page](assets/DishPage.png)
+
+**Cart Page**
+![Cart Page](assets/CartPage.png)
+
+**Payment Gateway Page**
+![Payement Gateway Page](assets/PaymentGatewayPage.png)
+
+**Live Tracking Map 1**
+![Map Page](assets/MapPage1.png)
+
+**Live Tracking Map 2**
+![Map Page](assets/MapPage2.png)
+
+**Your Orders History Page 1**  
+![Order History](assets/YourOrdersPage1.png)
+
+**Your Orders History Page 2**  
+![Order History](assets/YourOrdersPage2.png)
+
+**Logout Page**  
+![Logout](assets/LogoutPage.png)
+
 
 ---
 
